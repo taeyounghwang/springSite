@@ -4,12 +4,53 @@
 
 <mapper namespace="com.spring.client.board.dao.BoardDao">
 	
-	<!-- 게시물 기본 조회 -->
+	<!-- 게시물 기본 조회 --> <!-- (현재 사용하고 있는 쿼리문을 주석 처리한다)
 	<select id="boardList" resultType="board">
 		SELECT b_num, b_name, b_title,
 		to_char(b_date,'YYYY-MM-DD')as b_date
 		FROM spring_board
 		ORDER BY b_num desc
+	</select> -->
+	
+	<!-- 게시물 전체 조회 -->
+	<select id="boardList" parameterType="board" resultType="board">
+		<!-- Board - boardList -->
+		SELECT b_num, b_name, b_title,
+				TO_CHAR(b_date,'YYYY-MM-DD HH24:MI:SS') AS b_date
+		FROM
+		(		SELECT list.*, ROWNUM AS RNUM
+				FROM (
+						SELECT b_num, b_name, b_title, b_date
+						FROM spring_board
+						<where>
+							<if test="search=='b_title'">
+								<![CDATA[b_title LIKE '%'|| #{keyword} ||'%']]>
+							</if>
+							<if test="search=='b_content'">
+								<![CDATA[b_content LIKE '%'|| #{keyword} || '%']]>
+							</if>
+							<if test="search=='b_name'">
+								<![CDATA[b_name LIKE '%'|| #{keyword} ||'%']]>
+							</if>
+						</where>
+						<choose>
+							<when test="order_by=='b_num'">
+									ORDER BY b_num
+							</when>
+							<when test="order_by=='b_date'">
+									ORDER BY b_date
+							</when>
+						</choose>
+						<choose>
+							<when test="order_sc=='ASC'">
+									ASC
+							</when>
+							<when test="order_sc=='DESC'">
+									DESC
+							</when>
+						</choose>
+				) list
+			)
 	</select>
 	
 	<!-- 상세 페이지를 위한 게시물 조회 -->

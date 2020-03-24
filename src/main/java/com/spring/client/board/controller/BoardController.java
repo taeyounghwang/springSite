@@ -2,8 +2,8 @@ package com.spring.client.board.controller;
 
 import java.util.List;
 
-import org.mybatis.logging.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import com.spring.client.board.vo.BoardVO;
 @Controller
 @RequestMapping(value = "/board")
 public class BoardController {
-	private Logger log = org.slf4j.LoggerFactory.getLogger(BoardController.class);
+	private Logger log = LoggerFactory.getLogger(BoardController.class);
 
 	@Autowired
 	private BoardService boardService;
@@ -27,13 +27,13 @@ public class BoardController {
 	 *  글목록 구현하기
 	 **************************************************************/
 	@RequestMapping(value = "/boardList.do", method = RequestMethod.GET)
-	public String boardList(Model model) {
+	public String boardList(@ModelAttribute BoardVO bvo, Model model) {
 		log.info("boardList 호출 성공");
 
-		List<BoardVO> boardList = boardService.boardList();
+		List<BoardVO> boardList = boardService.boardList(bvo);
 
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("data");
+		model.addAttribute("data", bvo);
 
 		return "board/boardList";
 	}

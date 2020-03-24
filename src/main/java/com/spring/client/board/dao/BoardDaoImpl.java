@@ -12,10 +12,11 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Autowired
 	private SqlSession session;
+	
 	// 글목록 구현
 	@Override
-	public List<BoardVO> boardList() {
-		return session.selectList("boardList");
+	public List<BoardVO> boardList(BoardVO bvo) {
+		return session.selectList("boardList", bvo);
 	}
 	// 글상세 구현
 	@Override

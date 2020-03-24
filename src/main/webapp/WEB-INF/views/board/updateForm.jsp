@@ -29,7 +29,7 @@ src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		});
 		/* 목록 버튼 클릭 시 처리 이벤트 */
 		$("#boardListBtn").click(function(){
-			location.href = "board/boardList.do";
+			location.href = "/board/boardList.do";
 		});
 	});
 </script>

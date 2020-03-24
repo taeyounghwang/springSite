@@ -1,6 +1,8 @@
 package com.spring.client.board.vo;
 
-public class BoardVO {
+import com.spring.common.vo.CommonVO;
+
+public class BoardVO extends CommonVO {
 	private int 	b_num		=0;		//글번호
 	private String	b_name		="";	//작성자
 	private String	b_title		="";	//제목
