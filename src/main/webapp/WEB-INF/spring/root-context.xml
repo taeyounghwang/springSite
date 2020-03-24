@@ -8,5 +8,29 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- DB Connection -->
+		<!-- DataSource -->
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName" value="java:comp/env/jdbc/Oracle11g"/>
+		</bean>
+		<!-- Mybatis Setting -->
+		<!-- SqlSessionFactory를 생성해 주는 객체를 설정해 주어야 하는데 SqlSessionFatoryBean 이라는 클래스이다. -->
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="configLocation" value="classpath:config/mybatis-config.xml"></property>
+			<property name="mapperLocations" value="classpath:query/*.xml"></property>
+		</bean>
 		
+		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		</bean>
+		
+		<!-- a PlatformTransactionManager is still required -->
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource"></property>
+		</bean>
+		
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<property name="basePackage"> <value>com.spring.**.**.dao</value></property>
+		</bean>
 </beans>
