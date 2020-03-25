@@ -15,12 +15,15 @@ src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 	$("#boardInsertBtn").click(function(){
-		// 입력값 체트
+		// 입력값 체크
 		if (!chkSubmit($('#b_name'),"이름을")) return;
 		else if(!chkSubmit($('#b_title'),"제목을")) return;
 		else if(!chkSubmit($('#b_content'),"작성할 내용을")) return;
 		else if(!chkSubmit($('#b_pwd'),"비밀번호를")) return;
 		else{
+			if($('#file').val()!=""){
+				if(!chkFile($('#file'))) return;
+			}
 			$("#f_writeForm").attr({
 				"method":"POST",
 				"action":"/board/boardInsert.do"
@@ -41,7 +44,7 @@ src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<div class="contentTit"><h3>게시판 글작성</h3></div>
 		
 		<div class="contentTB">
-			<form id="f_writeForm" name="f_writeForm">
+			<form id="f_writeForm" name="f_writeForm" enctype="multipart/form-data">
 				<table id="boardWrite">
 					<colgroup>	
 						<col width="17%">
@@ -58,6 +61,10 @@ src="/resources/include/js/jquery-1.12.4.min.js"></script>
 					<tr>
 						<td class="ac vm">내용</td>
 						<td><textarea name="b_content" id="b_content"></textarea></td>						
+					</tr>
+					<tr>
+					<td class="ac">첨부파일</td>
+					<td><input type="file" name="file" id="file"></td>
 					</tr>
 					<tr>
 						<td class="ac">비밀번호</td>

@@ -64,7 +64,7 @@ public class PagingTag extends TagSupport {
 			lastPage = lastPage + 1;
 		currentlast = (currentlast > lastPage) ? lastPage : currentlast;
 
-		ret += "<div class='paininate'>";
+		ret += "<div class='paginate'>";
 
 		if (page > 1) {
 			ret += "<a href=\"javascript:goPage('1')\"><span>"

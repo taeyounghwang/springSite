@@ -24,6 +24,14 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 첨부파일을 위한 설정 -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8" />
+		<beans:property name="maxUploadSize" value="5242880" />
+
+	</beans:bean>
+	
 	<context:component-scan base-package="com.spring.**.**.**" />
 	
 	

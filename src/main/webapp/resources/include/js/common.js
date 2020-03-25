@@ -40,6 +40,19 @@ function formCheck(main, item, msg){
 		return true;
 	}
 }
+function chkFile(item){
+	/*
+	배열내의 값을 찾아서 인덱스를 반환(요소가 없을 경우-1반환)
+	jQuery.inArray(찾을 값, 검색 대상의 배열)
+	*/
+var ext = item.val().split('.').pop().toLowerCase();
+	if( jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+		alert('gif, png, jpg, jpeg 파일만 업로드 할수 있습니다.');
+	return false;
+		}else {
+	return true;
+	}
+}
 
 /* 함수명 : chkData(유효성 체크 대상, 메시지 내용)
  * 예시 : if(!chkData("#keyword","검색어를")) return;
