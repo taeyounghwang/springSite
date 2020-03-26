@@ -12,4 +12,6 @@ public interface BoardService {
 	public int pwdConfirm(BoardVO bvo);
 	public int boardUpdate(BoardVO bvo);
 	public int boardDelete(int b_num);
+	public int replyCnt(int b_num);
+	/* public int replyCnt(int b_num); */
 }

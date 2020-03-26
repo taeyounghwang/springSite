@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.client.board.service.BoardService;
@@ -22,6 +23,9 @@ import com.spring.common.file.FileUploadUtil;
 import com.spring.common.page.Paging;
 import com.spring.common.util.Util;
 
+import lombok.extern.java.Log;
+
+@Log
 @Controller
 @RequestMapping(value = "/board")
 public class BoardController {
@@ -35,14 +39,14 @@ public class BoardController {
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String boardList(@ModelAttribute BoardVO bvo, Model model) {
 		log.info("boardList 호출 성공");
-		
-		//페이지 세팅
+
+		// 페이지 세팅
 		Paging.setPage(bvo);
-		
+
 		// 전체 레코드수 구현
 		int total = boardService.boardListCnt(bvo);
 		log.info("total = " + total);
-		
+
 		// 글번호 재설정
 		int count = total - (Util.nvl(bvo.getPage()) - 1) * Util.nvl(bvo.getPageSize());
 		log.info("count = " + count);
@@ -67,32 +71,32 @@ public class BoardController {
 	 * 글쓰기 구현하기
 	 **************************************************************/
 	@RequestMapping(value = "/boardInsert", method = RequestMethod.POST)
-	public String boardInsert(@ModelAttribute BoardVO bvo, Model model, 
-			HttpServletRequest request)throws IllegalStateException, IOException {
+	public String boardInsert(@ModelAttribute BoardVO bvo, Model model, HttpServletRequest request)
+			throws IllegalStateException, IOException {
 
 		log.info("boardInsert 호출 성공");
 		// 확인 후 주석 처리
-		//log.info("fileName : " + bvo.getFile().getOriginalFilename());
-		//log.info("b_title : " + bvo.getB_title());
+		// log.info("fileName : " + bvo.getFile().getOriginalFilename());
+		// log.info("b_title : " + bvo.getB_title());
 		int result = 0;
 		String url = "";
-		
+
 		if (bvo.getFile() != null) {
 			String b_file = FileUploadUtil.fileUpload(bvo.getFile(), request, "board");
 			bvo.setB_file(b_file);
 		}
-		
+
 		result = boardService.boardInsert(bvo);
-		
+
 		if (result == 1) {
 			url = "/board/boardList.do";
-		
-		}else {
-			
+
+		} else {
+
 			model.addAttribute("code", 1);
 			url = "/board/writeForm.do";
 		}
-		
+
 		return "redirect:" + url;
 	}
 
@@ -214,4 +218,16 @@ public class BoardController {
 		}
 		return "redirect:" + url;
 	}
+	/**********************************
+	 * 글삭제전 댓글 갯수 구현하기 param int
+	 **********************************/
+	@ResponseBody							  
+    @RequestMapping(value="/replyCnt.do")
+	public String replyCnt(@RequestParam("b_num") int b_num) {
+		log.info("replyCnt 호출 성공");
+		int result = 0;
+		result = boardService.replyCnt(b_num);
+		return result+"";
+		}
+	
 }

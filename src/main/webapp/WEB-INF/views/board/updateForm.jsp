@@ -48,9 +48,9 @@
 			<form id="f_writeForm" name="f_writeForm"
 				enctype="multipart/form-data">
 				<input type="hidden" id="b_num" name="b_num"
-					value="${updateData.b_num}" /> <input type="hidden"
-					id="b_file name=" b_file" value="${updateData.file}" /> <input
-					type="hidden" id="page" name="page" value="${param.page}" /> <input
+					value="${updateData.b_num}" /> <input type="hidden" id="b_file"
+					name=" b_file" value="${updateData.file}" /> <input type="hidden"
+					id="page" name="page" value="${param.page}" /> <input
 					type="hidden" id="pageSize" name="pageSize"
 					value="${param.pageSize}" />
 				<table>
@@ -80,10 +80,13 @@
 							<td class="ac vm">내용</td>
 							<td colspan="3"><textarea name="b_content" id="b_content">${updateData.b_content}</textarea></td>
 						</tr>
-						<td class="ac">첨부파일</td>
-						<td colspan="3"><input type="file" name="file" id="file">
-							<span id="imgView">기존 이미지파일명: ${updateData.b_file}
-							<span id="imgArea"></span>
+						<tr>
+							<td class="ac">첨부파일</td>
+							<td colspan="3"><input type="file" name="file" id="file">
+								<span id="imgView">기존 이미지파일명: ${updateData.b_file} <span
+									id="imgArea"></span>
+							</span>
+						</tr>
 						<tr>
 							<td class="ac">비밀번호</td>
 							<td colspan="3"><input type="password" name="b_pwd"
