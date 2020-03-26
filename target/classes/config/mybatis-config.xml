@@ -4,7 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.spring.client.board.vo.BoardVO" alias="board"/>
-		<typeAlias type="com.spring.client.reply.vo.ReplyVO" alias="reply"/>
+		<typeAlias type="com.spring.client.board.vo.BoardVO"
+			alias="board" />
+		<typeAlias type="com.spring.client.reply.vo.ReplyVO"
+			alias="reply" />
+		<typeAlias type="com.spring.client.gallery.vo.GalleryVO" alias="gallery"/>
 	</typeAliases>
 </configuration>

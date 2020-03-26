@@ -17,7 +17,7 @@ function chkSubmit(item, msg){
  * 출력영역 : placeholder 속성을 이용.
  * 예시 : if(!chkSubmit($('#keyword'),"검색어를")) return;
  * */
-function chedkForm(item, msg){
+function checkForm(item, msg){
 	var message = "";
 	if (item.val().replace(/\s/g,"")== "") {
 		message = msg+ "입력해 주세요.";
